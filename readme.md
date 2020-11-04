@@ -2,7 +2,7 @@
 
 A tool for creating an ordered and well-named channel list for a GTMedia GTC TV receiver.
 
-## Preparing the tool
+### Preparing the tool
 
 This tool uses Go-Lang to run. You might have to install it first so it will be required to compile the code.
 
@@ -51,5 +51,5 @@ The main screen is composed by a list of features
 ### Making the list
 Before exporting the XML file, the tool will ensure that every channel of the designed list has only one match with the exported list. If there's more than a match for an entry, the tool will let the user pick one. A black screen will confirm that there are no duplicated matches on the list, so for exporting the channel list the user **will need to press the "Tab" key**. Then, the user will be asked for deleting the other channels, keeping the radio stations or keeping all of them.
 
-## Exporting the list to your receiver
+### Exporting the list to your receiver
 Once the tool has exported the XML file, copy it in a USB storage device and import it in your receiver.
