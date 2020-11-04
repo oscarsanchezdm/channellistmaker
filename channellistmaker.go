@@ -362,7 +362,7 @@ func update_ui(app *tview.Application, main *tview.Flex, footer_text string) {
 		SetTextAlign(tview.AlignCenter).
 		SetTextColor(tcell.ColorBlack)
 	header.Box.SetBackgroundColor(tcell.ColorWhite)
-	fmt.Fprintf(header,"GTC ChannelUpdater by osanchezdm - v0.01")
+	fmt.Fprintf(header,"GTC Channel List Maker by osanchezdm - v0.01")
 
 	footer := tview.NewTextView().
 		SetDynamicColors(true).
@@ -426,7 +426,7 @@ func menu(app *tview.Application) {
         intro := tview.NewTextView().
     		SetDynamicColors(true).
     		SetRegions(true)
-    	fmt.Fprintf(intro,"Welcome to GTC ChannelUpdater! Please pick an option to continue.")
+    	fmt.Fprintf(intro,"Welcome to GTC Channel List Maker! Please pick an option to continue.")
 
         main = tview.NewFlex().
             AddItem(tview.NewFlex().SetDirection(tview.FlexRow).
