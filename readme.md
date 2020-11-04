@@ -30,14 +30,14 @@ The compilation of the code only requires the following commands.
 
 ```
 git clone https://github.com/oscarsanchezdm/channellistmaker
-cd channelupdater
+cd channellistmaker
 go build
 ```
 
 ### Running the tool
 Once you have compiled the tool, just run it using
 ```
-./channelupdater
+./channellistmaker
 ```
 Please keep in mind that the tool requires to work the required files defined in "Preparing the tool".
 **Menu options**
