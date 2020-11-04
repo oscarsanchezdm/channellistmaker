@@ -23,6 +23,8 @@ For example, if we have a channel detected by the GTC which it's called "tdp" bu
 ```
 Teledeporte|tdp
 ```
+**An empty line will result in a fake channel called Sense nom (No Name)**, which is useful if you want to have some "blank spaces" between channels. In further versions I hope this "fake name" will be customizable.
+
 For more examples, there is a file called "sample_desired.txt" with a complete and custom channel list.
 
 ### Compilation of the tool
