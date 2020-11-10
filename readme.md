@@ -42,7 +42,8 @@ Once you have compiled the tool, just run it using
 ./channellistmaker
 ```
 Please keep in mind that the tool requires to work the required files defined in "Preparing the tool".
-**Menu options**
+
+### Menu items
 The main screen is composed by a list of features
 * **List XML channels**. This will show you the TV and radio channels that your exported XML file has. You can move along the list using the arrow keys. Pressing "Enter" key will give you audio and video properties.
 * **Check desired channels**. This will generate your custom list. Every desired channel entry will show you the number of matches with the exported channel list, and pressing "Enter" key will show them in more detail.
@@ -55,3 +56,10 @@ Before exporting the XML file, the tool will ensure that every channel of the de
 
 ### Exporting the list to your receiver
 Once the tool has exported the XML file, copy it in a USB storage device and import it in your receiver going to Menu -> Installation -> DB Management -> Import. Then, you will have to go to Channel Configuration -> More -> Sort and select A-Z sorting. If the sortint does not have any effect, try using another type of sorting before selecting A-Z sorting again.
+
+### Future features
+These are some of the features that are expected to be added in a near future:
+* Provide support to newer DB schemas
+* Automatic desired channel list creation based in TV services channel lists
+
+* Automatic import/export of channel list to the GTC receiver, using ADB
