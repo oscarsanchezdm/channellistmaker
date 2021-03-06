@@ -72,9 +72,11 @@ func program_list(db *Database) []*Program {
     var ptrs []*Program
 
     //add to the pointer array the SAT programs
-    for i := 0; i < len(db.Satellites[0].Transponders); i++ {
-        for j := 0; j < len(db.Satellites[0].Transponders[i].Programs); j++ {
-            ptrs = append(ptrs, &(db.Satellites[0].Transponders[i].Programs[j]))
+    for s := 0; s < len(db.Satellites); s++ {
+        for i := 0; i < len(db.Satellites[s].Transponders); i++ {
+          for j := 0; j < len(db.Satellites[s].Transponders[i].Programs); j++ {
+                ptrs = append(ptrs, &(db.Satellites[s].Transponders[i].Programs[j]))
+            }
         }
     }
 

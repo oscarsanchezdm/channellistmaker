@@ -59,7 +59,6 @@ Once the tool has exported the XML file, copy it in a USB storage device and imp
 
 ### Future features
 These are some of the features that are expected to be added in a near future:
-* Provide support to newer DB schemas
 * Automatic desired channel list creation based in TV services channel lists
 
 * Automatic import/export of channel list to the GTC receiver, using ADB

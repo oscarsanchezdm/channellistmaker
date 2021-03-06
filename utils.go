@@ -28,47 +28,82 @@ func sameAudioLanguages(program1 *Program, program2 *Program) bool {
     return true
 }
 
+func removeSat(db *Database, s int) {
+    db.Satellites = append(db.Satellites[:s],db.Satellites[s+1:]...)
+}
+
+func satClean(db *Database, s int) {
+    if (len(db.Satellites) == 1) {
+        return
+    }
+
+    if (len(db.Satellites[s].Transponders) == 0) {
+        removeSat(db,s)
+    }
+
+    var transp_count = 0;
+    for i := 0; i < len(db.Satellites[s].Transponders); i++ {
+        if (transp_count > 0) { 
+            return 
+        }
+
+        if (len(db.Satellites[s].Transponders[i].Programs) != 0) {
+            transp_count++;
+        }
+    }
+
+    if (transp_count == 0) { 
+        removeSat(db, s)
+        satClean(db,s)
+    } else { 
+        satClean(db,s+1)
+    }
+
+}
 
 func dbClean(db *Database, maxfreq int) {
     //TRANSPONDER CLEANUP
     var cleanTransponder bool = false
     if (maxfreq>0) { cleanTransponder = true }
 
+    satClean(db,0)
 
-    for i := 0; i < len(db.Satellites[0].Transponders); i++ {
-        if ((cleanTransponder==true) && (db.Satellites[0].Transponders[i]).Frequency>maxfreq) {
-            db.Satellites[0].Transponders = append(db.Satellites[0].Transponders[:i],
-                db.Satellites[0].Transponders[i+1:]...)
-            i--
-            continue
-        }
+    for s := 0; s < len(db.Satellites); s++ {
+        for i := 0; i < len(db.Satellites[s].Transponders); i++ {
+            if ((cleanTransponder==true) && (db.Satellites[s].Transponders[i]).Frequency>maxfreq) {
+                db.Satellites[s].Transponders = append(db.Satellites[s].Transponders[:i],
+                    db.Satellites[s].Transponders[i+1:]...)
+                i--
+                continue
+            }
 
-        for j := 0; j < len(db.Satellites[0].Transponders[i].Programs); j++ {
-            //add "xxx" at the beggining of the channel name
-            if (len(db.Satellites[0].Transponders[i].Programs[j].Name)>2) {
-                name := []byte(db.Satellites[0].Transponders[i].Programs[j].Name)
-                name[0]='x'
-                name[1]='x'
-                name[2]='x'
-                db.Satellites[0].Transponders[i].Programs[j].Name = string(name)
-            }
-            if ((len(db.Satellites[0].Transponders[i].Programs[j].Videos)==0) ||
-            (len(db.Satellites[0].Transponders[i].Programs[j].Name) == 0) ||
-            (db.Satellites[0].Transponders[i].Programs[j].Name == "xxxNo Name")) {
-                db.Satellites[0].Transponders[i].Programs = append(db.Satellites[0].Transponders[i].Programs[:j],
-                    db.Satellites[0].Transponders[i].Programs[j+1:]...)
-                j--
-            }
-        }
-        //add to the pointer array the DVB programs
-        for i := 0; i < len(db.Channels); i++ {
-            for j := 0; j < len(db.Channels[i].Programs); j++ {
-                if (len(db.Channels[i].Programs[j].Name)>2) {
-                    name := []byte(db.Channels[i].Programs[j].Name)
+            for j := 0; j < len(db.Satellites[s].Transponders[i].Programs); j++ {
+                //add "xxx" at the beggining of the channel name
+                if (len(db.Satellites[s].Transponders[i].Programs[j].Name)>2) {
+                    name := []byte(db.Satellites[s].Transponders[i].Programs[j].Name)
                     name[0]='x'
                     name[1]='x'
                     name[2]='x'
-                    db.Channels[i].Programs[j].Name = string(name)
+                    db.Satellites[s].Transponders[i].Programs[j].Name = string(name)
+                }
+                if ((len(db.Satellites[s].Transponders[i].Programs[j].Videos)==0) ||
+                (len(db.Satellites[s].Transponders[i].Programs[j].Name) == 0) ||
+                (db.Satellites[s].Transponders[i].Programs[j].Name == "xxxNo Name")) {
+                    db.Satellites[s].Transponders[i].Programs = append(db.Satellites[s].Transponders[i].Programs[:j],
+                        db.Satellites[s].Transponders[i].Programs[j+1:]...)
+                    j--
+                }
+            }
+            //add to the pointer array the DVB programs
+            for i := 0; i < len(db.Channels); i++ {
+                for j := 0; j < len(db.Channels[i].Programs); j++ {
+                    if (len(db.Channels[i].Programs[j].Name)>2) {
+                        name := []byte(db.Channels[i].Programs[j].Name)
+                        name[0]='x'
+                        name[1]='x'
+                        name[2]='x'
+                        db.Channels[i].Programs[j].Name = string(name)
+                    }
                 }
             }
         }
